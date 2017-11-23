@@ -1,0 +1,25 @@
+  body {
+      text-align: center;
+  }
+
+  .form {
+      border: 1px solid #ccc;
+      width: 350px;
+      margin: 0 auto;
+  }
+
+  input {
+      height: 30px;
+      padding: 3px;
+      width: 200px;
+      display: inline-block;
+  }
+
+  .row {
+      margin: 10px;
+  }
+
+  .button {
+      width: 100px;
+      height: 30px;
+  }
