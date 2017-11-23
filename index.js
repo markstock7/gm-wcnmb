@@ -39,8 +39,8 @@ app.get('/lottery/:id', function(req, res) {
     if (!req.session.user) {
        res.redirect('/join');
     } else {
-      let lotteryId = req.params.id;
-      let lottery = lotteries.find(_ => _.id === lotteryId);
+      var lotteryId = req.params.id;
+      var lottery = lotteries.find(_ => _.id === lotteryId);
 
       res.render('lottery', { lottery: lottery,  title: '红包页面' });
     }
@@ -72,8 +72,8 @@ app.get('/api/lottery/hit/:id', function(req, res) {
   if (!req.session.user) {
        res.redirect('/join');
   } else {
-      let lotteryId = req.params.id;
-      let lottery = lotteries.find(_ => _.id === lotteryId);
+      var lotteryId = req.params.id;
+      var lottery = lotteries.find(_ => _.id === lotteryId);
       if (lottery && lottery.lost === false) {
         req.session.user.bonus = req.session.user.bonus + lottery.bonus;
         res.json({ status: 'ok' });
