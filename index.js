@@ -40,7 +40,7 @@ app.get('/lottery/:id', function(req, res) {
        res.redirect('/join');
     } else {
       var lotteryId = req.params.id;
-      var lottery = lotteries.find(_ => _.id === lotteryId);
+      var lottery = findLottery(lotteryId);
 
       res.render('lottery', { lottery: lottery,  title: '红包页面' });
     }
@@ -73,7 +73,7 @@ app.get('/api/lottery/hit/:id', function(req, res) {
        res.redirect('/join');
   } else {
       var lotteryId = req.params.id;
-      var lottery = lotteries.find(_ => _.id === lotteryId);
+      var lottery = findLottery(lotteryId);
       if (lottery && lottery.lost === false) {
         req.session.user.bonus = req.session.user.bonus + lottery.bonus;
         res.json({ status: 'ok' });
@@ -83,6 +83,12 @@ app.get('/api/lottery/hit/:id', function(req, res) {
 
   }
 });
+
+function findLottery(lotteryId) {
+  lotteries.find(function(_) {
+    return _.id === lotteryId;
+  })
+}
 
 app.listen(3000, function() {
     console.log('Example app listening on port 3000!');
