@@ -1,18 +1,19 @@
 <%- contentFor('pageSection') %>
 
-<% if (lottery) { %>
-  <div>恭喜你发现一个红包, 总计<%- lottery.bonus %>元</div>
+<% if (type === 'lottery' && lottery.lost === false) { %>
+  <div>居然走了狗屎运？恭喜你发现一个红包, 总计<%- lottery.bonus %>元</div>
   <div><button onClick="getLottery(<%- lottery.id %>)">领取</button></div>
-<% } else if (lottery && lottery.lost) { %>
-  此红包已被领取
+<% } else if (type === 'lottery' && lottery.lost) { %>
+  还想再领第二遍？我的程序没bug，哈哈:>
+<% } else if (type === 'cheat') { %>
+  这个地点不存在，想骗我？没门
 <% } else { %>
-  此处无红包
+  真遗憾，这里没有红吧，哈哈，傻了吧
 <% } %>
 <script>
   function getLottery(id) {
     $.get("/api/lottery/hit/" + id ,function(result){
       if (result.status === 'ok') {
-        gio('setUserId', <%- lottery.bonus %>);
         window.alert("成功领取红包");
         window.location = '/profile';
       } else {
