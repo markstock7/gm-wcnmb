@@ -22,16 +22,14 @@ var defaultUser = {
   }
 }
 
-function createUser(phoneNumber) {
-  return knex('aee_user').insert(defaultUser[phoneNumber]);
+function createUser(user) {
+  return knex('aee_user_money').insert([user]).then(id => {
+    return knex('aee_user_money').where({ id }).select();
+  });
 }
 
 function findUser(phone) {
-
-}
-
-function addUserBouns() {
-
+  return knex('aee_user_money').where({ phone: phone }).select();
 }
 
 function addInsights(insight) {
@@ -109,5 +107,7 @@ module.exports = {
   getLocationByApId: getLocationByApId,
   getTeams: getTeams,
   getBidInfo,
-  makeBid
+  makeBid,
+  createUser,
+  findUser
 };

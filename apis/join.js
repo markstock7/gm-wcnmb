@@ -1,6 +1,5 @@
 var Promise = require('bluebird'),
     models = require('../models'),
-    // 用一个子进程来计算流量
     join;
 
 join = {
@@ -13,11 +12,25 @@ join = {
     },
     join: (req, res) => {
         var phone = req.body.phone;
-        req.session.user = {
-            phone: phone,
-            bonus: 0
-        };
-        res.json(req.session.user);
+        models.findUser(phone).then(user => {
+            if (user.length) {
+                req.session.user = user[0];
+                res.json(req.session.user);
+            } else {
+                req.session.user = user = {
+                    phone,
+                    bonus: 0
+                };
+                models.createUser(user).then(user => {
+                    user = user[0];
+                    req.session.user = user;
+                    res.json(req.session.user);
+                });
+            }
+        })
+    },
+    joinSuccess: (req, res) => {
+        res.render('join_success', { title: '参加成功' })
     }
 };
 

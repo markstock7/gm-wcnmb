@@ -14,7 +14,7 @@
     $.post("/api/join",{ phone: $('#phone').val() },function(result){
       if (result) {
         gio('setUserId', $('#phone').val());
-        window.location = '/profile'
+        window.location = '/joinSuccess'
       }
     });
   }
@@ -32,7 +32,7 @@
     right: 150px;
     text-align: center;
     margin-top: 40px;
-        margin-top: 195px;
+        margin-top: 225px;
 }
 
 .join .form input {

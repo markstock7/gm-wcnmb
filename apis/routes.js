@@ -25,6 +25,7 @@ module.exports = function apiRoutes() {
     apiRouter.get('/lottery/:id', authMiddleware, apis.lottery.lotteryPage);
 
     apiRouter.post('/api/join', apis.join.join);
+    apiRouter.get('/joinSuccess', authMiddleware, apis.join.joinSuccess);
 
     apiRouter.get('/profile', authMiddleware, apis.profile.profilePage);
 
