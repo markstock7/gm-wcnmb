@@ -58,7 +58,7 @@ lottery = {
                 res.render('lottery', { title: '诈骗红包页面', type: 'cheat' });
             } else {
                 location = location[0];
-                if (Math.random() * 10 > 7) {
+                if (Math.random() * 10 > 5) {
                     var lottery = {
                         id: "" + Math.round(Math.random() * 1000000000),
                         bonus: Math.round(Math.random() * 20),
