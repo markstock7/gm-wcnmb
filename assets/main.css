@@ -1,25 +1,55 @@
-  body {
-      text-align: center;
-  }
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
 
-  .form {
-      border: 1px solid #ccc;
-      width: 350px;
-      margin: 0 auto;
-  }
+li {
+    direction: none;
+    list-style: none
+}
 
-  input {
-      height: 30px;
-      padding: 3px;
-      width: 200px;
-      display: inline-block;
-  }
+input[type="checkbox"],
+input[type="radio"] {
+    width: 30px !important;
+}
 
-  .row {
-      margin: 10px;
-  }
+td,
+th {
+    padding: 0;
+}
 
-  .button {
-      width: 100px;
-      height: 30px;
-  }
+body {
+    text-align: center;
+}
+
+.form {
+    border: 1px solid #ccc;
+    width: 350px;
+    margin: 0 auto;
+}
+
+input {
+    height: 30px;
+    padding: 3px;
+    width: 200px;
+    display: inline-block;
+}
+
+.row {
+    margin: 10px;
+}
+
+.button {
+    width: 100px;
+    height: 30px;
+}
+
+
+.bid {
+    width: 500px;
+    border: 1px solid #ccc;
+}
+
+.bid li {
+    text-align: left;
+}
