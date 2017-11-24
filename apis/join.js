@@ -7,7 +7,7 @@ join = {
         if (req.session.user) {
             res.redirect('/profile');
         } else {
-            res.render('join', { user: req.session.user, title: '参加活动' });
+            res.render('join', { user: req.session.user, title: '欢迎参加马拉松红包争夺赛' });
         }
     },
     join: (req, res) => {

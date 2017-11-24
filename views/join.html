@@ -5,17 +5,19 @@
       <input name='phone' placeholder="请输入手机号" id='phone' />
   </div>
   <div class='row'>
-    <button class='button' onClick="handleClickJoin()">参与活动</button>
+    <button class='button' onClick="handleClickJoin()" id='button'>参与活动</button>
   </div>
   </div>
 </div>
 <script>
   function handleClickJoin() {
+    $('#button').attr('disabled', true);
     $.post("/api/join",{ phone: $('#phone').val() },function(result){
       if (result) {
         gio('setUserId', $('#phone').val());
         window.location = '/joinSuccess'
       }
+      $('#button').attr('disabled', false);
     });
   }
 </script>

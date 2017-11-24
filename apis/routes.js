@@ -18,7 +18,7 @@ module.exports = function apiRoutes() {
     // ## CORS pre-flight check
     // apiRouter.options('*', cors);
 
-    apiRouter.get('/api/insight', authMiddleware, apis.http(apis.insights.browser));
+    apiRouter.get('/api/insight', apis.http(apis.insights.browser));
 
 
     apiRouter.get('/api/lottery/hit/:id', authMiddleware, apis.http(apis.lottery.hit));
