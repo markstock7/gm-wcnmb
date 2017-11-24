@@ -11,6 +11,9 @@
 </div>
 <script>
   function handleClickJoin() {
+
+
+
     var myreg = /^(((13[0-9]{1})|(15[0-9]{1})|(18[0-9]{1}))+\d{8})$/;
 
     if(!myreg.test($("#phone").val())) {
@@ -22,7 +25,21 @@
     $.post("/api/join",{ phone: $('#phone').val() },function(result){
       if (result) {
         gio('setUserId', $('#phone').val());
-        window.location = '/joinSuccess'
+
+        var search = window.location.search, redirectUrl = '';
+
+        if (result.bonus === 0) {
+          redirectUrl = '/joinSuccess';
+        } else {
+          redirectUrl = '/profile';
+        }
+
+        if (search.indexOf('redirectUrl') > -1) {
+          redirectUrl = search.substr(search.indexOf('redirectUrl') + 'redirectUrl'.length + 1);
+        }
+
+        window.location = redirectUrl;
+
       }
       $('#button').attr('disabled', false);
     });

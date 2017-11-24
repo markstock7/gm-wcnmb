@@ -2,8 +2,9 @@ var express = require('express'),
     apis = require('../apis');
 
 var authMiddleware = (req, res, next) => {
+    console.log(req.originalUrl);
     if (!req.session.user) {
-        res.redirect('/join');
+        res.redirect('/join?redirectUrl=' + req.originalUrl);
     } else {
         next(null, req, res);
     }
