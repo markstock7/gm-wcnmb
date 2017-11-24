@@ -51,7 +51,6 @@ lottery = {
     lotteryPage: (req, res) => {
         models.getLocationByApId(req.params.id).then(location => {
             var user = req.session.user;
-            console.log(location);
             if (location.length === 0) {
                 res.render('lottery', { title: '诈骗红包页面', type: 'cheat' });
             } else {
@@ -61,9 +60,8 @@ lottery = {
                         id: "" + Math.round(Math.random() * 1000000000),
                         bonus: Math.round(Math.random() * 20),
                         lost: false,
-                        location
+                        location: location.ap_name
                     };
-
 
                     models.addInsights({
                         type: 'hit-lottery',
@@ -71,7 +69,7 @@ lottery = {
                         attrs: JSON.stringify({
                             '类型': '发现红包',
                             '手机': user.phone,
-                            '地点': location
+                            '地点': location.ap_name
                         })
                     });
 
@@ -79,7 +77,7 @@ lottery = {
 
                     res.render('lottery', { lottery: lottery, title: '红包页面', type: 'lottery' });
                 } else {
-                    res.render('lottery', { lottery: null, title: '红包页面', type: 'none' });
+                    res.render('lottery', { location: location.ap_name, lottery: null, title: '红包页面', type: 'none' });
                 }
             }
 

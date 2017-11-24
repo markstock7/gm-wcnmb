@@ -11,6 +11,13 @@
 </div>
 <script>
   function handleClickJoin() {
+    var myreg = /^(((13[0-9]{1})|(15[0-9]{1})|(18[0-9]{1}))+\d{8})$/;
+
+    if(!myreg.test($("#phone").val())) {
+      alert('起爱的，能不能输入正确的手机号呢？');
+      return false;
+    }
+
     $('#button').attr('disabled', true);
     $.post("/api/join",{ phone: $('#phone').val() },function(result){
       if (result) {

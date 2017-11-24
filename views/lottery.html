@@ -1,14 +1,24 @@
 <%- contentFor('pageSection') %>
 
 <% if (type === 'lottery' && lottery.lost === false) { %>
-  <div>居然走了狗屎运？恭喜你发现一个红包, 总计<%- lottery.bonus %>元</div>
-  <div><button onClick="getLottery(<%- lottery.id %>)">领取</button></div>
+  <div class='fount_lottery content'>
+    <div class='text'>
+      <p>恭喜亲爱的找到了<span style="color:red"><%- lottery.location %></span> 的红包</p>
+      <p>价值<span style="color:red"><%- lottery.bonus %></span>元</p>
+    </div>
+    <button onClick="getLottery(<%- lottery.id %>)"></button>
+  </div>
 <% } else if (type === 'lottery' && lottery.lost) { %>
   还想再领第二遍？我的程序没bug，哈哈:>
 <% } else if (type === 'cheat') { %>
   这个地点不存在，想骗我？没门
 <% } else { %>
-  真遗憾，这里没有红吧，哈哈，傻了吧
+  <div class='no_lottery content'>
+    <div class='text'>
+      <p><span style="color:red"><%- location %></span>空荡荡</p>
+      <p>红包跑光光</p>
+    </div>
+  </div>
 <% } %>
 <script>
   function getLottery(id) {
@@ -22,3 +32,57 @@
     });
   }
 </script>
+<style>
+  .fount_lottery {
+    background-image: url('/assets/found_lottery.png');
+    background-color: #ffffff;
+    text-align: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+  }
+  .fount_lottery .text {
+    position: absolute;
+    top: 50%;
+    font-size: 50px;
+    left: 0;
+    right: 0;
+        margin-top: -96px;
+  }
+  .fount_lottery p {
+    margin: 8px;
+  }
+  .fount_lottery button {
+        /* width: 100px; */
+    height: 100px;
+    width: 310px;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    margin-top: 119px;
+    right: 0;
+    left: 50%;
+    margin-left: -161px;
+  }
+  .no_lottery {
+    background-image: url('/assets/no_lottery.png');
+    background-color: #ffffff;
+    text-align: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+  }
+  .no_lottery .text {
+position: absolute;
+    top: 50%;
+    font-size: 50px;
+    left: 0;
+    right: 0;
+    font-weight: bold;
+    font-size: 70px;
+    margin-top: -450px;
+  }
+  .no_lottery p {
+    margin: 4px;
+  }
+</style>
