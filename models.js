@@ -23,13 +23,22 @@ var defaultUser = {
 }
 
 function createUser(user) {
-  return knex('aee_user_money').insert([user]).then(id => {
-    return knex('aee_user_money').where({ id }).select();
+  return knex('aee_user').insert([user]).then(id => {
+    return knex('aee_user').where({ id }).select();
   });
 }
 
+function updateUser(phone, bonus, verify) {
+  return knex('aee_user')
+    .where({ phone })
+    .update({
+      bonus,
+      verify: true
+    });
+}
+
 function findUser(phone) {
-  return knex('aee_user_money').where({ phone: phone }).select();
+  return knex('aee_user').where({ phone: phone }).select();
 }
 
 function addInsights(insight) {
@@ -101,6 +110,27 @@ function makeBid(phone, team, money) {
     });
 }
 
+function profileAnalyse(phone) {
+  return Promise.all([
+    knex('aee_user').where({ phone }).select(),
+    knex('aee_insights').select(),
+    knex('aee_user').orderBy('bonus','DESC')
+  ]).then(result => {
+    var bonus = result[0].bonus;
+    var insights = result[1].filter(_ => {
+      _.attrs = JSON.parse(_.attrs)
+      return _.attrs['类型'] === '领取红包';
+    });
+    var ranking = result[2].findIndex(_ => _.phone === phone) + 1;
+
+    return Promise.resolve({
+      bonus,
+      num: insights.length,
+      ranking
+    })
+  });
+}
+
 module.exports = {
   addInsights: addInsights,
   getInsights: getInsights,
@@ -109,5 +139,7 @@ module.exports = {
   getBidInfo,
   makeBid,
   createUser,
-  findUser
+  findUser,
+  profileAnalyse,
+  updateUser
 };

@@ -32,7 +32,10 @@ lottery = {
             user.bonus = user.bonus + lottery.bonus;
             lottery.lost = true;
 
-            return Promise.resolve({ status: 'ok' });
+            return models.updateUser(user.phone, user.bonus).then(() => {
+                return Promise.resolve({ status: 'ok' });
+            });
+
         } else {
 
             models.addInsights({

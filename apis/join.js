@@ -15,12 +15,20 @@ join = {
         models.findUser(phone).then(user => {
             if (user.length) {
                 req.session.user = user[0];
+
+                models.updateUser(phone, req.session.user.bonus);
+
                 res.json(req.session.user);
             } else {
                 req.session.user = user = {
                     phone,
-                    bonus: 0
+                    bonus: 0,
+                    name: '呵呵',
+                    show_name: '呵呵',
+                    mac: '',
+                    verify: true
                 };
+
                 models.createUser(user).then(user => {
                     user = user[0];
                     req.session.user = user;
