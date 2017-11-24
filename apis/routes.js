@@ -28,6 +28,8 @@ module.exports = function apiRoutes() {
 
     apiRouter.get('/profile', authMiddleware, apis.profile.profilePage);
 
+    apiRouter.get('/bid', apis.bid.bidPage);
+
     apiRouter.get('/*', apis.join.joinPage);
 
     return apiRouter;

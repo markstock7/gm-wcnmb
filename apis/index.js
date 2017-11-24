@@ -4,6 +4,7 @@ var _              = require('lodash'),
     lottery        = require('./lottery'),
     profile        = require('./profile'),
     join           = require('./join'),
+    bid            = require('./bid'),
     http,
     originHttp;
 
@@ -67,5 +68,6 @@ module.exports = {
     insights,
     lottery,
     profile,
-    join
+    join,
+    bid
 };

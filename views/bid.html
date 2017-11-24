@@ -1,0 +1,20 @@
+<%- contentFor('pageSection') %>
+<div class='form'>
+  <div>
+    <h3>参赛队伍</h3>
+    <ul>
+      <% for(var i = 0; i < teams.length; i++) { %>
+        <li><input name="team" type="radio" value="<%=teams[i].name%>" /> <%=teams[i].name%></li>
+      <% } %>
+    </ul>
+  </div>
+  <div class='row'>
+    <button class='button' onClick="handleClickJoin()">立即投注</button>
+  </div>
+</div>
+
+<script>
+  function handleClickBid() {
+
+  }
+</script>

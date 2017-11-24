@@ -75,8 +75,13 @@ function getLocationByApId(id) {
   return knex('aee_ap').where({ ap_id: id }).select('ap_name').limit(1);
 }
 
+function getTeams() {
+  return knex('hackathon_team').select();
+}
+
 module.exports = {
   addInsights: addInsights,
   getInsights: getInsights,
-  getLocationByApId: getLocationByApId
+  getLocationByApId: getLocationByApId,
+  getTeams: getTeams
 };
