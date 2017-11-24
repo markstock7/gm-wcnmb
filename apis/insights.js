@@ -8,6 +8,7 @@ insights = {
         return models.getInsights().then(function(data) {
             return Promise.resolve(data);
         }, function(error) {
+            console.log(error);
             return Promise.resolve([]);
         });
     }
