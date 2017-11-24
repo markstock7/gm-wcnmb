@@ -55,7 +55,6 @@ function getInsights() {
         .join('aee_ap', 'aee_ap.ap_id', 'aee_mac_ap_log.ap_id')
         .select('aee_mac_ap_log.tm', 'aee_user.phone', 'aee_ap.ap_name')
     ]).then(function(datas) {
-        console.log(datas);
         var data1 = _.map(datas[0], function(d) {
             d.attrs = JSON.parse(d.attrs);
             d.attrs['标题'] = '中奖啦'
