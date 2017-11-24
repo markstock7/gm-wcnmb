@@ -26,7 +26,7 @@ function createUser(phoneNumber) {
   return knex('aee_user').insert(defaultUser[phoneNumber]);
 }
 
-function findUser() {
+function findUser(phone) {
 
 }
 
@@ -101,7 +101,6 @@ function makeBid(phone, team, money) {
 
       return knex('aee_bid').insert(mybid);
     });
-
 }
 
 module.exports = {
