@@ -47,7 +47,7 @@ function addInsights(insight) {
     });
 }
 
-function getInsights() {
+function getInsights(options) {
     return Promise.all([
         knex('aee_insights').select(),
         knex('aee_mac_ap_log')
@@ -72,8 +72,17 @@ function getInsights() {
                 },
                 filterHit: true
             };
-        })
-        return Promise.resolve(_.sortBy(data1.concat(data2), ['timestamp']));
+        });
+
+        datas = data1.concat(data2);
+
+        if (options.userid) {
+          datas = datas.filter(_ => {
+            return _.attrs['手机'] === options.userid;
+          });
+        }
+
+        return Promise.resolve(_.sortBy(datas, ['timestamp']));
     })
 }
 

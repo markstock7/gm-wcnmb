@@ -5,7 +5,7 @@ var Promise = require('bluebird'),
 
 insights = {
     browser: function(options) {
-        return models.getInsights().then(function(data) {
+        return models.getInsights(options).then(function(data) {
             return Promise.resolve(data);
         }, function(error) {
             console.log(error);
