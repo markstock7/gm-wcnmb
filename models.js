@@ -79,9 +79,36 @@ function getTeams() {
   return knex('hackathon_team').select();
 }
 
+function getBidInfo(phone) {
+  return knex('aee_bid').where({ phone }).select();
+}
+
+function makeBid(phone, team, money) {
+  return knex('aee_bid').where({ phone, team }).select()
+    .then(mybids => {
+      var mybid;
+      if (mybids.length) {
+        mybid = mybid[0]
+      } else {
+        mybid = {
+          phone,
+          team,
+          money: 0
+        };
+      }
+
+      mybid.money = mybid.money + money;
+
+      return knex('aee_bid').insert(mybid);
+    });
+
+}
+
 module.exports = {
   addInsights: addInsights,
   getInsights: getInsights,
   getLocationByApId: getLocationByApId,
-  getTeams: getTeams
+  getTeams: getTeams,
+  getBidInfo,
+  makeBid
 };

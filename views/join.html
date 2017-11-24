@@ -1,13 +1,14 @@
 <%- contentFor('pageSection') %>
-<div class='form'>
+<div class='join content'>
+  <div class='form'>
   <div class='row'>
-      <label>手机号：</label><input name='phone' placeholder="请输入手机号" id='phone' />
-    </div>
-    <div class='row'>
-      <button class='button' onClick="handleClickJoin()">参与活动</button>
-    </div>
+      <input name='phone' placeholder="请输入手机号" id='phone' />
   </div>
-
+  <div class='row'>
+    <button class='button' onClick="handleClickJoin()">参与活动</button>
+  </div>
+  </div>
+</div>
 <script>
   function handleClickJoin() {
     $.post("/api/join",{ phone: $('#phone').val() },function(result){
@@ -18,3 +19,35 @@
     });
   }
 </script>
+
+<style>
+.join{
+  background-image: url('assets/join_background.png');
+  background-color: #ffffff;
+}
+.join .form {
+    position: absolute;
+    top: 50%;
+    left: 150px;
+    right: 150px;
+    text-align: center;
+    margin-top: 40px;
+        margin-top: 195px;
+}
+
+.join .form input {
+  width: 100%;
+  border-width: 0;
+  text-align: center;
+  font-size: 38px;
+  height: 80px;
+  border-bottom: 3px solid red;
+}
+.join .form button {
+    width: 200px;
+    font-size: 30px;
+    height: 85px;
+    margin-top: 38px;
+    border-bottom: 3px solid #dddddd;
+}
+</style>
