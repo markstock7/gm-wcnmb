@@ -1,24 +1,98 @@
 <%- contentFor('pageSection') %>
-<div class='bid form'>
-  <div>
-    <h3>参赛队伍</h3>
-    <ul>
+<div class='bid content'>
+  <div class="text">
+    <p>Hackathon 马上就要开始啦</p>
+    <p>现在就投注吧</p>
+    <p>选择团队投注 <span style="color:red"><%- user.bonus %></span> 元</p>
+    <select name='team' id='team'>
       <% for(var i = 0; i < teams.length; i++) { %>
-        <li><input name="team" type="radio" value="<%=teams[i].name%>" /> <%=teams[i].name%></li>
+        <option value="<%=teams[i].name%>"><%=teams[i].name%></option>
       <% } %>
-    </ul>
+    </select>
+    <div class='row'>
+      <button class='button' id='button' onClick="handleClickBid()">立即投注</button>
+    </div>
   </div>
-  <div class='row'>
-    <button class='button' onClick="handleClickJoin()">立即投注</button>
-  </div>
-</div>
-<div class='bid'>
-  <h3>我的投注</h3>
-
 </div>
 
 <script>
+  var user = '<%- JSON.stringify(user) %>';
+  user = JSON.parse(user);
   function handleClickBid() {
+
+    if(user.bonus === 0) {
+      alert('亲爱的，没钱拿啥投？');
+      return false;
+    }
+
+    if (!$('#team').val()) {
+      alert('选一个呀');
+      return false;
+    }
+
+    $('#button').attr('disabled', true);
+
+    $.post("/api/bid", { team: $('#team').val() }, function(result) {
+      if (result.error) {
+        alert(result.error);
+        window.location = '/summarize';
+      } else {
+        alert('投注成功，All in !!');
+        window.location = '/summarize';
+      }
+      $('#button').attr('disabled', false);
+    });
 
   }
 </script>
+
+<style>
+.bid{
+  background-image: url('assets/bid.png');
+  background-color: #ffffff;
+    text-align: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+}
+.text {
+    position: absolute;
+    top: 50%;
+    font-size: 50px;
+    left: 0;
+    right: 0;
+        margin-top: -96px;
+  }
+
+  .text p {
+    margin: 8px;
+  }
+.bid select {
+    position: absolute;
+    top: 50%;
+    background: #fff;
+    border: 0;
+    height: 89px;
+    width: 460px;
+    text-align: center;
+    margin: 0 auto;
+    left: 50%;
+    margin-left: -241px;
+        margin-top: 164px;
+    background: #fff;
+    font-size: 40px;
+    padding: 0 20px;
+}
+.bid button {
+      width: 260px;
+    height: 100px;
+    position: absolute;
+    border: 1px solid #dddddd;
+    top: 50%;
+        margin-top: 285px;
+    margin-left: -133px;
+    /* color: #fff; */
+    font-weight: bold;
+    font-size: 40px;
+}
+</style>

@@ -1,0 +1,67 @@
+<%- contentFor('pageSection') %>
+<div class="profile content">
+  <div class='text'>
+    <h4><%- user.show_name %>的一天</h4>
+    <% if (result.firstInsight) { %>
+    <p>第 <span style="color:red">1</span> 个红包是在 <span style="color:red"><%- result.firstInsight.attrs['地点'] -%></span> 发现的</p>
+    <% } %>
+    <% if (result.mostInsight) { %>
+      <p>在 <span style="color:red"><%- result.mostInsight.attrs['地点'] -%></span> 出现的次数最多，有 <span style="color:red"><%- result.mostInsightTimes -%></span> 次</p>
+    <% } %>
+
+    <p>最后一共获得了 <span style="color:red"><%- user.bonus %></span> 元奖金</p>
+    <% if (result.bid) { %>
+      <p>全部投注给了 <span style="color:red"><%- result.bid.team %></span></p>
+    <% } %>
+
+    <p>当前排名第 <span style="color:red"><%- result.ranking %></span></p>
+    <p class='qoute'>
+    <% if (result.ranking && result.ranking === 1) { %>
+      厉害，可以俯视身边的那群渣渣啦.
+    <% } else if (result.ranking && result.ranking < 10) { %>
+      这么能，你怎么不上天呢.
+    <% } else if (result.ranking && result.ranking > 10 && result.ranking < 20) { %>
+      不错，离上天还差一根窜天猴.
+    <% } else if (result.ranking && result.ranking > 20 && result.ranking < 50) { %>
+      年前人，还需要努力啊，要不走走捷径？
+    <% } else if (result.ranking && result.ranking > 50 && result.ranking < 100) { %>
+      成绩这么差，你好意思吗？要不今晚来我房间？我帮帮你？
+    <% } else { %>
+      快吃脑白金，金刚大力丸，鹤顶红，补一补！！！
+    <% } %>
+    </p>
+  </div>
+</div>
+
+<style>
+  .profile {
+    background-image: url('/assets/profile.png');
+    background-color: #ffffff;
+    text-align: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+  }
+  .profile .text {
+    position: absolute;
+    top: 50%;
+    font-size: 79px;
+    left: 0;
+    right: 0;
+    margin-top: -367px;
+
+  }
+  .profile p {
+    margin: 8px;
+    font-size: 40px;
+  }
+
+  .no_lottery p {
+    margin: 4px;
+  }
+  .qoute {
+    font-size: 50px;
+    color: #f38d0d;
+    margin-top: 20px !important;
+  }
+</style>

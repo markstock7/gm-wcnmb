@@ -103,18 +103,17 @@ function makeBid(phone, team, money) {
         .then(mybids => {
             var mybid;
             if (mybids.length) {
-                mybid = mybid[0]
+              return Promise.reject('不要重复投注');
             } else {
                 mybid = {
                     phone,
                     team,
                     money: 0
                 };
+                mybid.money = mybid.money + money;
+
+                return knex('aee_bid').insert(mybid);
             }
-
-            mybid.money = mybid.money + money;
-
-            return knex('aee_bid').insert(mybid);
         });
 }
 
@@ -122,7 +121,8 @@ function profileAnalyse(phone) {
     return Promise.all([
         knex('aee_user').where({ phone }).select(),
         knex('aee_insights').select(),
-        knex('aee_user').orderBy('bonus', 'DESC')
+        knex('aee_user').orderBy('bonus', 'DESC'),
+        knex('aee_bid').where({ phone }).select()
     ]).then(result => {
         var bonus = result[0].bonus;
         var insights = result[1].filter(_ => {
@@ -131,10 +131,28 @@ function profileAnalyse(phone) {
         });
         var ranking = result[2].findIndex(_ => _.phone === phone) + 1;
 
+        var mostInsights = _.groupBy(insights, insight => {
+          return insight.attrs['地点']
+        });
+
+        var mostInsight = [];
+
+        _.mapValues(mostInsights, function(o) {
+          if (o.length > mostInsight.length) {
+            mostInsight = o
+          }
+        });
+
+        var bid = result[3]
+
         return Promise.resolve({
             bonus,
             num: insights.length,
-            ranking
+            ranking,
+            firstInsight: insights.length > 0 ? insights[0] : null,
+            mostInsight: mostInsight.length > 0 ? mostInsight[0]: null,
+            bid: bid.length > 0 ? bid[0] : null,
+            mostInsightTimes: mostInsight.length
         })
     });
 }

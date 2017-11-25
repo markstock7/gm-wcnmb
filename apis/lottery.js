@@ -25,7 +25,7 @@ lottery = {
                     '类型': '领取红包',
                     '手机': user.phone,
                     '奖金': lottery.bonus,
-                    '地点': ''
+                    '地点': lottery.location
                 })
             });
 
@@ -36,7 +36,7 @@ lottery = {
                 return Promise.resolve({ status: 'ok' });
             });
 
-        } else {
+        } else if (lottery && lottery.lost === true) {
 
             models.addInsights({
                 type: 'hit-lottery',
@@ -44,7 +44,7 @@ lottery = {
                 attrs: JSON.stringify({
                     '类型': '领取失败',
                     '手机': user.phone,
-                    '地点': ''
+                    '地点': lottery.location
                 })
             });
 

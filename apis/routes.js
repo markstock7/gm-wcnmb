@@ -30,7 +30,9 @@ module.exports = function apiRoutes() {
 
     apiRouter.get('/profile', authMiddleware, apis.profile.profilePage);
 
-    apiRouter.get('/bid', apis.bid.bidPage);
+    apiRouter.get('/bid', authMiddleware, apis.bid.bidPage);
+    apiRouter.post('/api/bid', authMiddleware, apis.http(apis.bid.bid));
+    apiRouter.get('/summarize', authMiddleware, apis.profile.summarizePage);
 
     apiRouter.get('/*', apis.join.joinPage);
 

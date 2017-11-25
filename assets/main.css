@@ -44,11 +44,6 @@ input {
 }
 
 
-.bid {
-    width: 500px;
-    border: 1px solid #ccc;
-}
-
 .bid li {
     text-align: left;
 }
