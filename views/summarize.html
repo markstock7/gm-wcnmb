@@ -30,8 +30,21 @@
       快吃脑白金，金刚大力丸，鹤顶红，补一补！！！
     <% } %>
     </p>
+    <% if (show) { %>
+    <p class="comment">
+      <b>评价：</b>
+      <button onClick="handleClick()">满意</button>
+      <button onClick="handleClick()">还可以</button>
+    </p>
+    <% } %>
   </div>
 </div>
+
+<script>
+  function handleClick() {
+    alert("提交成功，祝你早生贵子");
+  }
+</script>
 
 <style>
   .profile {
@@ -63,5 +76,11 @@
     font-size: 50px;
     color: #f38d0d;
     margin-top: 20px !important;
+  }
+  .comment {
+      margin-top: 71px !important;
+  }
+  .comment button {
+    color: red;
   }
 </style>
